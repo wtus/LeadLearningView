@@ -17,131 +17,92 @@ public class LearningBuilder {
     }
 
 
-    public LearningBuilder setTargetType(int targetType) throws Exception {
-        if (mBuilt) {
-            throw new Exception("Already created. rebuild a new one.");
-        }
+    public LearningBuilder setTargetType(@TargetType int targetType) {
         mConfigeration.targetType = targetType;
         return this;
-
     }
 
-    public LearningBuilder setTargetView(View v) throws Exception {
-        if (mBuilt) {
-            throw new Exception("Already created. rebuild a new one.");
-        } else if (v == null) {
+    public LearningBuilder setTargetView(View v) {
+        //assert true : "fsdafsa";//貌似不行啊，只能在单元测试里使用吗
+        if (v == null) {
             throw new NullPointerException("TargetView is null");
         }
-        // assert false : "";//貌似不行啊
-         v.getGlobalVisibleRect(mConfigeration.targetRect);
+        v.getGlobalVisibleRect(mConfigeration.targetRect);
         return this;
     }
 
-    public LearningBuilder setPadding(int padding) throws Exception {
-        if (mBuilt) {
-            throw new Exception("Already created. rebuild a new one.");
-        }
+    public LearningBuilder setPadding(int padding) {
         mConfigeration.padding = padding;
         return this;
     }
 
-    public LearningBuilder setPaddingLeft(int paddingLeft) throws Exception {
-        if (mBuilt) {
-            throw new Exception("Already created. rebuild a new one.");
-        }
+    public LearningBuilder setPaddingLeft(int paddingLeft) {
         mConfigeration.paddingLeft = paddingLeft;
         return this;
     }
 
-    public LearningBuilder setPaddingRight(int paddingRight) throws Exception {
-        if (mBuilt) {
-            throw new Exception("Already created. rebuild a new one.");
-        }
+    public LearningBuilder setPaddingRight(int paddingRight) {
         mConfigeration.paddingRight = paddingRight;
         return this;
     }
 
-    public LearningBuilder setPaddingTop(int paddingTop) throws Exception {
-        if (mBuilt) {
-            throw new Exception("Already created. rebuild a new one.");
-        }
+    public LearningBuilder setPaddingTop(int paddingTop) {
         mConfigeration.paddingTop = paddingTop;
         return this;
     }
 
-    public LearningBuilder setPaddingBottom(int paddingBottom) throws Exception {
-        if (mBuilt) {
-            throw new Exception("Already created. rebuild a new one.");
-        }
+    public LearningBuilder setPaddingBottom(int paddingBottom) {
         mConfigeration.paddingBottom = paddingBottom;
         return this;
     }
 
-    public LearningBuilder setmTargetViewId(int mTargetViewId) throws Exception {
-        if (mBuilt) {
-            throw new Exception("Already created. rebuild a new one.");
-        }
+    public LearningBuilder setmTargetViewId(int mTargetViewId) {
         mConfigeration.mTargetViewId = mTargetViewId;
         return this;
     }
 
-    public LearningBuilder setmCorner(int mCorner) throws Exception {
-        if (mBuilt) {
-            throw new Exception("Already created. rebuild a new one.");
-        }
+    public LearningBuilder setmCorner(int mCorner) {
         mConfigeration.mCorner = mCorner;
         return this;
     }
 
-    public LearningBuilder setmFullingColorId(int mFullingColorId) throws Exception {
-        if (mBuilt) {
-            throw new Exception("Already created. rebuild a new one.");
-        }
+    public LearningBuilder setmFullingColorId(int mFullingColorId) {
         mConfigeration.mFullingColorId = mFullingColorId;
         return this;
     }
 
-    public LearningBuilder setmAutoDismiss(boolean mAutoDismiss) throws Exception {
-        if (mBuilt) {
-            throw new Exception("Already created. rebuild a new one.");
-        }
+    public LearningBuilder setmAutoDismiss(boolean mAutoDismiss) {
         mConfigeration.mAutoDismiss = mAutoDismiss;
         return this;
     }
 
-    public LearningBuilder setmEnterAnimationId(int mEnterAnimationId) throws Exception {
-        if (mBuilt) {
-            throw new Exception("Already created. rebuild a new one.");
-        }
+    public LearningBuilder setmEnterAnimationId(int mEnterAnimationId) {
         mConfigeration.mEnterAnimationId = mEnterAnimationId;
         return this;
     }
 
-    public LearningBuilder setmExitAnimationId(int mExitAnimationId) throws Exception {
-        if (mBuilt) {
-            throw new Exception("Already created. rebuild a new one.");
-        }
+    public LearningBuilder setmExitAnimationId(int mExitAnimationId) {
         mConfigeration.mExitAnimationId = mExitAnimationId;
         return this;
     }
 
     public LeadControl create() {
-        LeadControl control=new LeadControl();
+        LeadControl control = new LeadControl();
         control.setConfiguration(mConfigeration);
         return control;
     }
 
 
-    class Configeration {
+    public class Configeration {
         public int targetType;
-        public Rect targetRect;
+        public Rect targetRect=new Rect();
         public int padding = 0;
         public int paddingLeft = 0;
         public int paddingRight = 0;
         public int paddingTop = 0;
         public int paddingBottom = 0;
         public int mTargetViewId = -1;//目标View 的Id
-        public int mCorner = 0;
+        public int mCorner = 10;
         public int mFullingColorId = android.R.color.black;
         public boolean mAutoDismiss = true;
         public int mEnterAnimationId = -1;
@@ -150,9 +111,9 @@ public class LearningBuilder {
     }
 
     @IntDef({SHAPE_ROUND_RECT, SHAPE_CIRCLE})
-    public @interface RevealType {
+    public @interface TargetType {
     }
 
     public static final int SHAPE_ROUND_RECT = 0;
-    public static final int SHAPE_CIRCLE = 0;
+    public static final int SHAPE_CIRCLE = 1;
 }

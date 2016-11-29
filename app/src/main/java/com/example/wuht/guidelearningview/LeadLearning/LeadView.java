@@ -9,6 +9,7 @@ import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.view.ViewGroup;
 
 /**
@@ -19,7 +20,9 @@ public class LeadView extends ViewGroup {
     private Paint mBgPaint, mTargetPaint;
     private Bitmap mBitmap;
     private Canvas mBitmapCanvas;
-    private Rect mTargetRect=new Rect();
+    private RectF mTargetRect;
+    private int mTargetType = LearningBuilder.SHAPE_ROUND_RECT;
+    private int mCorner;
 
     public LeadView(Context context) {
         super(context);
@@ -58,8 +61,15 @@ public class LeadView extends ViewGroup {
     protected void onDraw(Canvas canvas) {
         mBitmapCanvas.drawColor(mBgPaint.getColor());
         mTargetPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-        mBitmapCanvas.drawCircle(500, 400, 300, mTargetPaint);
-
+        switch (mTargetType) {
+            case LearningBuilder.SHAPE_CIRCLE:
+                mBitmapCanvas.drawCircle(mTargetRect.centerX(), mTargetRect.centerY(), Math.max(mTargetRect.width(), mTargetRect.height()) / 2, mTargetPaint);
+                break;
+            case LearningBuilder.SHAPE_ROUND_RECT:
+                mBitmapCanvas.drawRoundRect(mTargetRect, mCorner, mCorner, mTargetPaint);
+                break;
+        }
+        mTargetPaint.setXfermode(null);
         canvas.drawBitmap(mBitmap, 0, 0, null);
     }
 
@@ -71,14 +81,14 @@ public class LeadView extends ViewGroup {
 
 
     public void setTargetType(int targetType) {
-
+        mTargetType = targetType;
     }
 
     public void setTargetRect(Rect rect) {
-
+        mTargetRect = new RectF(rect);
     }
 
-    public void setCorner(int mCorner) {
-
+    public void setCorner(int corner) {
+        mCorner = corner;
     }
 }

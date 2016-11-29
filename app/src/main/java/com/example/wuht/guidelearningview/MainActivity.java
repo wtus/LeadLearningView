@@ -3,11 +3,9 @@ package com.example.wuht.guidelearningview;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
-import com.example.wuht.guidelearningview.LeadLearning.LeadView;
 import com.example.wuht.guidelearningview.LeadLearning.LearningBuilder;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -40,8 +38,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.btn_test:
               //  ViewGroup vp = (ViewGroup) findViewById(android.R.id.content);
-                ViewGroup vp = (ViewGroup) this.getWindow().getDecorView();//这个直接全屏了啊
-                vp.addView(new LeadView(this));
+//                ViewGroup vp = (ViewGroup) this.getWindow().getDecorView();//这个直接全屏了啊
+//                vp.addView(new LeadView(this));
+                LearningBuilder builder=new LearningBuilder();
+                builder.setTargetView(v)
+                        .setTargetType(LearningBuilder.SHAPE_ROUND_RECT)
+                        .setPadding(10);
+                builder.create().show(this);
                 break;
         }
     }

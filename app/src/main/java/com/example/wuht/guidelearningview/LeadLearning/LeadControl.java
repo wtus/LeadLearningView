@@ -41,16 +41,16 @@ public class LeadControl {
 
     private Rect computeRect(Rect rect) {//设置了 padding  其他局部设置无效，一般就有个padding 就行了，特殊需求就别嫌麻烦
         if (mConfiguration.padding != 0) {
-            rect.left += mConfiguration.padding;
+            rect.left -= mConfiguration.padding;
             rect.right += mConfiguration.padding;
             rect.bottom += mConfiguration.padding;
-            rect.top += mConfiguration.padding;
+            rect.top -= mConfiguration.padding;
             return rect;
         }
-        rect.left += mConfiguration.paddingLeft;
+        rect.left -= mConfiguration.paddingLeft;
         rect.right += mConfiguration.paddingRight;
         rect.bottom += mConfiguration.paddingBottom;
-        rect.top += mConfiguration.paddingTop;
+        rect.top -= mConfiguration.paddingTop;
         return rect;
     }
 
