@@ -1,9 +1,11 @@
 package com.example.wuht.guidelearningview.LeadLearning;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.view.ViewGroup;
@@ -14,6 +16,8 @@ import android.view.ViewGroup;
 
 public class LeadView extends ViewGroup {
     private Paint mBgPaint, mTargetPaint;
+    private Bitmap mBitmap;
+    private Canvas mBitmapCanvas;
 
     public LeadView(Context context) {
         super(context);
@@ -25,6 +29,12 @@ public class LeadView extends ViewGroup {
 
         mBgPaint.setAlpha((int) (255 * 0.8f));
         mTargetPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_OVER));
+
+        Point size = new Point();
+        size.x = context.getResources().getDisplayMetrics().widthPixels;
+        size.y = context.getResources().getDisplayMetrics().heightPixels;
+        mBitmap = Bitmap.createBitmap(size.x, size.y, Bitmap.Config.ARGB_8888);
+        mBitmapCanvas = new Canvas(mBitmap);
     }
 
     @Override
@@ -44,8 +54,11 @@ public class LeadView extends ViewGroup {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        canvas.drawColor(mBgPaint.getColor());
-        canvas.drawCircle(0,0,1001,mTargetPaint);
+        mBitmapCanvas.drawColor(mBgPaint.getColor());
+        mTargetPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        mBitmapCanvas.drawCircle(500, 400, 300, mTargetPaint);
+
+        canvas.drawBitmap(mBitmap, 0, 0, null);
     }
 
     private void initPaint(Paint paint, int color) {
