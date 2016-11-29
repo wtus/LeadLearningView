@@ -79,7 +79,7 @@ public class LeadView extends ViewGroup {
                     mDirectionRect.bottom = child.getMeasuredHeight() + mDirectionRect.top;
 
                     mDirectionRect.left = (int) (mTargetRect.width() / 2 - mDirectionRect.left / 2);
-                    mDirectionRect.right = mDirectionRect.left + mDirectionRect.width();
+                    mDirectionRect.right = mDirectionRect.left + child.getMeasuredWidth();
                     mDirectionRect.offset((int) mTargetRect.left, 0);
                     break;
                 case LearningBuilder.DIRECTION_UP:
