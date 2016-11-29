@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 LearningBuilder builder=new LearningBuilder();
                 builder.setTargetView(v)
                         .setTargetType(LearningBuilder.SHAPE_ROUND_RECT)
+                        .addDirection(R.layout.v_arrow)
                         .setPadding(10);
                 builder.create().show(this);
                 break;

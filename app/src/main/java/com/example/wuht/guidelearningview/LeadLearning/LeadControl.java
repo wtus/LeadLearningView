@@ -3,6 +3,7 @@ package com.example.wuht.guidelearningview.LeadLearning;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
+import android.view.View;
 import android.view.ViewGroup;
 
 /**
@@ -37,6 +38,8 @@ public class LeadControl {
         mLeadView.setTargetType(mConfiguration.targetType);
         mLeadView.setTargetRect(computeRect(mConfiguration.targetRect));
         mLeadView.setCorner(mConfiguration.mCorner);
+        mLeadView.setDirection(mConfiguration.direction);
+        mLeadView.addView(View.inflate(context, mConfiguration.directionViewId, null));
     }
 
     private Rect computeRect(Rect rect) {//设置了 padding  其他局部设置无效，一般就有个padding 就行了，特殊需求就别嫌麻烦

@@ -2,6 +2,7 @@ package com.example.wuht.guidelearningview.LeadLearning;
 
 import android.graphics.Rect;
 import android.support.annotation.IntDef;
+import android.support.annotation.LayoutRes;
 import android.view.View;
 
 /**
@@ -86,6 +87,17 @@ public class LearningBuilder {
         return this;
     }
 
+    public LearningBuilder addDirection(@LayoutRes int layoutId) {
+        return addDirection(layoutId, DIRECTION_DOWN);
+    }
+
+    public LearningBuilder addDirection(@LayoutRes int layoutId, @Direction int direction) {
+        mConfigeration.direction = direction;
+        mConfigeration.directionViewId = layoutId;
+        return this;
+    }
+
+
     public LeadControl create() {
         LeadControl control = new LeadControl();
         control.setConfiguration(mConfigeration);
@@ -95,7 +107,7 @@ public class LearningBuilder {
 
     public class Configeration {
         public int targetType;
-        public Rect targetRect=new Rect();
+        public Rect targetRect = new Rect();
         public int padding = 0;
         public int paddingLeft = 0;
         public int paddingRight = 0;
@@ -107,6 +119,8 @@ public class LearningBuilder {
         public boolean mAutoDismiss = true;
         public int mEnterAnimationId = -1;
         public int mExitAnimationId = -1;
+        public int directionViewId = -1;
+        public int direction = -1;
 
     }
 
@@ -114,6 +128,16 @@ public class LearningBuilder {
     public @interface TargetType {
     }
 
+    @IntDef({DIRECTION_UP, DIRECTION_LEFT, DIRECTION_RIGHT, DIRECTION_DOWN})
+    public @interface Direction {
+    }
+
     public static final int SHAPE_ROUND_RECT = 0;
     public static final int SHAPE_CIRCLE = 1;
+
+    public static final int DIRECTION_UP = 2;
+    public static final int DIRECTION_LEFT = 3;
+    public static final int DIRECTION_RIGHT = 4;
+    public static final int DIRECTION_DOWN = 5;
+
 }
