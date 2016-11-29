@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import com.example.wuht.guidelearningview.LeadLearning.LeadView;
+import com.example.wuht.guidelearningview.LeadLearning.LearningBuilder;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -19,6 +20,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
+        initLearningView();
+    }
+
+    private void initLearningView() {
+        LearningBuilder builder=new LearningBuilder();
+
     }
 
     private void initView() {

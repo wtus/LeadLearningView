@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
 import android.view.ViewGroup;
 
 /**
@@ -18,6 +19,7 @@ public class LeadView extends ViewGroup {
     private Paint mBgPaint, mTargetPaint;
     private Bitmap mBitmap;
     private Canvas mBitmapCanvas;
+    private Rect mTargetRect=new Rect();
 
     public LeadView(Context context) {
         super(context);
@@ -65,5 +67,18 @@ public class LeadView extends ViewGroup {
         paint.setColor(color);
         paint.setDither(true);
         paint.setStyle(Paint.Style.FILL);
+    }
+
+
+    public void setTargetType(int targetType) {
+
+    }
+
+    public void setTargetRect(Rect rect) {
+
+    }
+
+    public void setCorner(int mCorner) {
+
     }
 }
