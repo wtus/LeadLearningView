@@ -25,6 +25,7 @@ public class LeadControl implements View.OnClickListener {
         mConfiguration = configuration;
     }
 
+
     public void show(Activity activity) {
         if (null == mLeadView && null != mConfiguration) {
             createLeadView(activity);
