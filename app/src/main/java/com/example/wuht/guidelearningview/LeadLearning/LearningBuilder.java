@@ -1,113 +1,137 @@
 package com.example.wuht.guidelearningview.LeadLearning;
 
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.support.annotation.IntDef;
 import android.support.annotation.LayoutRes;
 import android.view.View;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by wuht on 2016/11/29.
  */
 
 public class LearningBuilder {
-    private Configeration mConfigeration;
+    private Configuration mConfiguration;
     private boolean mBuilt = false;
 
     public LearningBuilder() {
-        mConfigeration = new Configeration();
+        mConfiguration = new Configuration();
     }
 
 
     public LearningBuilder setTargetType(@TargetType int targetType) {
-        mConfigeration.targetType = targetType;
+        mConfiguration.targetType = targetType;
         return this;
     }
 
-    public LearningBuilder setTargetView(View v) {
+    public LearningBuilder setTargetView(View... views) {
         //assert true : "fsdafsa";//貌似不行啊，只能在单元测试里使用吗
-        if (v == null) {
-            throw new NullPointerException("TargetView is null");
+        Rect rect = new Rect();
+        for (View v : views) {
+            if (v == null) {
+                throw new NullPointerException("TargetView is null");
+            }
+            v.getGlobalVisibleRect(rect);
+            mConfiguration.targetRectList.add(new RectF(rect));
         }
-        v.getGlobalVisibleRect(mConfigeration.targetRect);
         return this;
     }
 
     public LearningBuilder setPadding(int padding) {
-        mConfigeration.padding = padding;
+        mConfiguration.padding = padding;
         return this;
     }
 
     public LearningBuilder setPaddingLeft(int paddingLeft) {
-        mConfigeration.paddingLeft = paddingLeft;
+        mConfiguration.paddingLeft = paddingLeft;
         return this;
     }
 
     public LearningBuilder setPaddingRight(int paddingRight) {
-        mConfigeration.paddingRight = paddingRight;
+        mConfiguration.paddingRight = paddingRight;
         return this;
     }
 
     public LearningBuilder setPaddingTop(int paddingTop) {
-        mConfigeration.paddingTop = paddingTop;
+        mConfiguration.paddingTop = paddingTop;
         return this;
     }
 
     public LearningBuilder setPaddingBottom(int paddingBottom) {
-        mConfigeration.paddingBottom = paddingBottom;
+        mConfiguration.paddingBottom = paddingBottom;
         return this;
     }
 
     public LearningBuilder setmTargetViewId(int mTargetViewId) {
-        mConfigeration.mTargetViewId = mTargetViewId;
+        mConfiguration.mTargetViewId = mTargetViewId;
         return this;
     }
 
     public LearningBuilder setmCorner(int mCorner) {
-        mConfigeration.mCorner = mCorner;
+        mConfiguration.mCorner = mCorner;
         return this;
     }
 
     public LearningBuilder setmFullingColorId(int mFullingColorId) {
-        mConfigeration.mFullingColorId = mFullingColorId;
+        mConfiguration.mFullingColorId = mFullingColorId;
         return this;
     }
 
     public LearningBuilder setmAutoDismiss(boolean mAutoDismiss) {
-        mConfigeration.mAutoDismiss = mAutoDismiss;
+        mConfiguration.mAutoDismiss = mAutoDismiss;
         return this;
     }
 
     public LearningBuilder setmEnterAnimationId(int mEnterAnimationId) {
-        mConfigeration.mEnterAnimationId = mEnterAnimationId;
+        mConfiguration.mEnterAnimationId = mEnterAnimationId;
         return this;
     }
 
     public LearningBuilder setmExitAnimationId(int mExitAnimationId) {
-        mConfigeration.mExitAnimationId = mExitAnimationId;
+        mConfiguration.mExitAnimationId = mExitAnimationId;
         return this;
     }
 
-    public LearningBuilder addDirection(@LayoutRes int layoutId) {
+/*    public LearningBuilder addDirection(@LayoutRes int layoutId) {
         return addDirection(layoutId, DIRECTION_DOWN);
     }
 
     public LearningBuilder addDirection(@LayoutRes int layoutId, @Direction int direction) {
-        mConfigeration.direction = direction;
-        mConfigeration.directionViewId = layoutId;
+        mConfiguration.direction = direction;
+        mConfiguration.directionViewId = layoutId;
+        return this;
+    }*/
+
+    public LearningBuilder setDirectionViewId(@LayoutRes int... layoutId) {
+        //mConfiguration.direction = direction;
+        for (int id : layoutId) {
+            mConfiguration.directionViewId.add(id);
+        }
+        return this;
+    }
+
+    public LearningBuilder setDirection(@Direction int... direction) {
+        //mConfiguration.direction = direction;
+        for (int d : direction) {
+            mConfiguration.direction.add(d);
+        }
         return this;
     }
 
 
     public LeadControl create() {
         LeadControl control = new LeadControl();
-        control.setConfiguration(mConfigeration);
+        control.setConfiguration(mConfiguration);
         return control;
     }
 
 
-    public class Configeration {
-        public int targetType;
-        public Rect targetRect = new Rect();
+    public class Configuration {
+        public int targetType = SHAPE_ROUND_RECT;
+        public List<RectF> targetRectList = new ArrayList<>();
         public int padding = 0;
         public int paddingLeft = 0;
         public int paddingRight = 0;
@@ -119,8 +143,8 @@ public class LearningBuilder {
         public boolean mAutoDismiss = true;
         public int mEnterAnimationId = -1;
         public int mExitAnimationId = -1;
-        public int directionViewId = -1;
-        public int direction = -1;
+        public List<Integer> directionViewId = new ArrayList<>();
+        public List<Integer> direction = new ArrayList<>();
 
     }
 

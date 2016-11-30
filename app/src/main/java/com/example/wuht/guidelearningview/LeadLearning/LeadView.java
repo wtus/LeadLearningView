@@ -14,6 +14,9 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by wuht on 2016/11/29.
  */
@@ -25,8 +28,11 @@ public class LeadView extends ViewGroup {
     private RectF mTargetRect;
     private int mTargetType = LearningBuilder.SHAPE_ROUND_RECT;
     private int mCorner;
+    private List<Integer> mDirectionList;
     private int mDirection;
     private Rect mDirectionRect = new Rect();
+    private List<RectF> mTargetRectList = new ArrayList<>();
+    private int mIndex = 0;
 
     public LeadView(Context context) {
         super(context);
@@ -75,12 +81,12 @@ public class LeadView extends ViewGroup {
             }
             switch (mDirection) {
                 case LearningBuilder.DIRECTION_DOWN:
-                    mDirectionRect.top = (int) mTargetRect.bottom;
+                    mDirectionRect.top = (int) mTargetRectList.get(j).bottom;
                     mDirectionRect.bottom = child.getMeasuredHeight() + mDirectionRect.top;
 
-                    mDirectionRect.left = (int) (mTargetRect.width() / 2 - child.getMeasuredWidth() / 2);
+                    mDirectionRect.left = (int) (mTargetRectList.get(j).width() / 2 - child.getMeasuredWidth() / 2);
                     mDirectionRect.right = mDirectionRect.left + child.getMeasuredWidth();
-                    mDirectionRect.offset((int) mTargetRect.left, 0);
+                    mDirectionRect.offset((int) mTargetRectList.get(j).left, 0);
                     break;
                 case LearningBuilder.DIRECTION_UP:
 
@@ -100,18 +106,24 @@ public class LeadView extends ViewGroup {
     protected void dispatchDraw(Canvas canvas) {
         //super.dispatchDraw(canvas);
         final long drawingTime = getDrawingTime();//要这个干啥勒
-        View child;
-        for (int i = 0; i < getChildCount(); i++) {
-            child = getChildAt(i);
-            if (null != child) {
-                drawChild(canvas, child, drawingTime);
-            }
+        View child = getChildAt(mIndex);
+        if (null != child) {
+            drawChild(canvas, child, drawingTime);
         }
+//        for (int i = 0; i < getChildCount(); i++) {
+//            child = getChildAt(i);
+//            if (null != child) {
+//                drawChild(canvas, child, drawingTime);
+//            }
+//        }
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        mBitmapCanvas.drawColor(mBgPaint.getColor());
+        mBitmap.eraseColor(mBgPaint.getColor());
+/*        if (mIndex < 1) {
+            mBitmapCanvas.drawColor(mBgPaint.getColor());
+        }*/
         mTargetPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
         switch (mTargetType) {
             case LearningBuilder.SHAPE_CIRCLE:
@@ -136,15 +148,37 @@ public class LeadView extends ViewGroup {
         mTargetType = targetType;
     }
 
-    public void setTargetRect(Rect rect) {
-        mTargetRect = new RectF(rect);
+    public void setTargetRect(List<RectF> rectList) {
+        mTargetRectList = rectList;
+        mTargetRect = rectList.get(0);
+//        mTargetRect = new RectF(rect);
     }
 
     public void setCorner(int corner) {
         mCorner = corner;
     }
 
-    public void setDirection(int direction) {
-        mDirection = direction;
+
+    public void setDirectionList(List<Integer> directionList) {
+        mDirectionList = directionList;
+        if (mDirectionList.size() == 0) {
+            mDirection = 5;
+        }
+    }
+
+    public void setNextChildIndex() {
+        if (mIndex < 0 || mIndex >= getChildCount()) {
+            return;
+        }
+        mIndex++;
+        if (mIndex < mTargetRectList.size() && mIndex >= 0) {
+            mTargetRect = mTargetRectList.get(mIndex);
+        }
+        if (mIndex < mDirectionList.size() && mIndex >= 0) {
+            mDirection = mDirectionList.get(mIndex);
+        } else {
+            mDirection = 5;
+        }
+        invalidate();
     }
 }
