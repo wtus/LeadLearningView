@@ -29,7 +29,7 @@ public class LeadView extends ViewGroup {
     private int mTargetType = LearningBuilder.SHAPE_ROUND_RECT;
     private int mCorner;
     private List<Integer> mDirectionList;
-    private int mDirection;
+    private int mDirection = 5;
     private Rect mDirectionRect = new Rect();
     private List<RectF> mTargetRectList = new ArrayList<>();
     private int mIndex = 0;
@@ -79,7 +79,7 @@ public class LeadView extends ViewGroup {
             if (child.getVisibility() == GONE) {
                 continue;
             }
-            switch (mDirection) {
+            switch (mDirectionList.get(j)) {
                 case LearningBuilder.DIRECTION_DOWN:
                     mDirectionRect.top = (int) mTargetRectList.get(j).bottom;
                     mDirectionRect.bottom = child.getMeasuredHeight() + mDirectionRect.top;
@@ -89,7 +89,12 @@ public class LeadView extends ViewGroup {
                     mDirectionRect.offset((int) mTargetRectList.get(j).left, 0);
                     break;
                 case LearningBuilder.DIRECTION_UP:
+                    mDirectionRect.bottom = (int) mTargetRectList.get(j).top;
+                    mDirectionRect.top = mDirectionRect.bottom - child.getMeasuredHeight();
 
+                    mDirectionRect.left = (int) (mTargetRectList.get(j).width() / 2 - child.getMeasuredWidth() / 2);
+                    mDirectionRect.right = mDirectionRect.left + child.getMeasuredWidth();
+                    mDirectionRect.offset((int) mTargetRectList.get(j).left, 0);
                     break;
                 case LearningBuilder.DIRECTION_LEFT:
 
@@ -110,17 +115,10 @@ public class LeadView extends ViewGroup {
         if (null != child) {
             drawChild(canvas, child, drawingTime);
         }
-//        for (int i = 0; i < getChildCount(); i++) {
-//            child = getChildAt(i);
-//            if (null != child) {
-//                drawChild(canvas, child, drawingTime);
-//            }
-//        }
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-
         mBitmap.eraseColor(mBgPaint.getColor());
         mTargetPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
         switch (mTargetType) {

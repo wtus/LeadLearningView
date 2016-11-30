@@ -45,7 +45,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 LearningBuilder builder = new LearningBuilder();
                 builder.setTargetView(v, btn_test1)
                         .setTargetType(LearningBuilder.SHAPE_ROUND_RECT)
-                        .setDirectionViewId(R.layout.v_arrow,R.layout.v_arrow)
+                        .setDirectionViewId(R.layout.v_arrow, R.layout.v_arrow)
+                        .setDirection(LearningBuilder.DIRECTION_DOWN, LearningBuilder.DIRECTION_UP)
                         .setPadding(10);
                 builder.create().show(this);
                 break;
