@@ -1,5 +1,6 @@
 package com.example.wuht.guidelearningview;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -36,13 +37,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_test:
-                LearningBuilder builder = new LearningBuilder();
-                builder.setTargetView(v, btn_test1)
-                        .setTargetType(LearningBuilder.SHAPE_ROUND_RECT)
-                        .setDirectionViewId(R.layout.v_arrow, R.layout.v_arrow)
-                        .setDirection(LearningBuilder.DIRECTION_DOWN, LearningBuilder.DIRECTION_UP)
-                        .setPadding(10);
-                builder.create().show(this);
+//                LearningBuilder builder = new LearningBuilder();
+//                builder.setTargetView(v, btn_test1)
+//                        .setTargetType(LearningBuilder.SHAPE_ROUND_RECT)
+//                        .setDirectionViewId(R.layout.v_arrow, R.layout.v_arrow)
+//                        .setDirection(LearningBuilder.DIRECTION_DOWN, LearningBuilder.DIRECTION_UP)
+//                        .setPadding(10);
+//                builder.create().show(this);
+                startActivity(new Intent(MainActivity.this,SimpleActivity.class));
                 break;
         }
     }
