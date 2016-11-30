@@ -79,7 +79,12 @@ public class LeadView extends ViewGroup {
             if (child.getVisibility() == GONE) {
                 continue;
             }
-            switch (mDirectionList.get(j)) {
+            try {
+                mDirection = mDirectionList.get(j);
+            } catch (Exception e) {
+                mDirection = 5;
+            }
+            switch (mDirection) {
                 case LearningBuilder.DIRECTION_DOWN:
                     mDirectionRect.top = (int) mTargetRectList.get(j).bottom;
                     mDirectionRect.bottom = child.getMeasuredHeight() + mDirectionRect.top;
@@ -97,10 +102,20 @@ public class LeadView extends ViewGroup {
                     mDirectionRect.offset((int) mTargetRectList.get(j).left, 0);
                     break;
                 case LearningBuilder.DIRECTION_LEFT:
+                    mDirectionRect.right = (int) mTargetRectList.get(j).left;
+                    mDirectionRect.left = mDirectionRect.right - child.getMeasuredWidth();
 
+                    mDirectionRect.top = (int) (mTargetRectList.get(j).height() / 2 - child.getMeasuredHeight() / 2);
+                    mDirectionRect.bottom = mDirectionRect.top + child.getMeasuredHeight();
+                    mDirectionRect.offset(0, (int) mTargetRect.top);
                     break;
                 case LearningBuilder.DIRECTION_RIGHT:
+                    mDirectionRect.left = (int) mTargetRectList.get(j).right;
+                    mDirectionRect.right = mDirectionRect.left + child.getMeasuredWidth();
 
+                    mDirectionRect.top = (int) (mTargetRectList.get(j).height() / 2 - child.getMeasuredHeight() / 2);
+                    mDirectionRect.bottom = mDirectionRect.top + child.getMeasuredHeight();
+                    mDirectionRect.offset(0, (int) mTargetRect.top);
                     break;
             }
             child.layout(mDirectionRect.left, mDirectionRect.top, mDirectionRect.right, mDirectionRect.bottom);

@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 /**
  * Created by wuht on 2016/11/30.
@@ -18,6 +19,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     protected ImageView mIvA3;
     protected Button mBtnA1;
     protected RelativeLayout mActivityMain;
+    protected TextView mSampleView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

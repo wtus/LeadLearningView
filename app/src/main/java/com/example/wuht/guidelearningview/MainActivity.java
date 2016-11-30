@@ -14,6 +14,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btn_test;
     private RelativeLayout activity_main;
     private Button btn_test1;
+    private Button btn_test2;
+    private Button btn_test3;
+    private Button btn_test4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,20 +34,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn_test = (Button) findViewById(R.id.btn_test);
         btn_test1 = (Button) findViewById(R.id.btn_test1);
         btn_test.setOnClickListener(this);
+        btn_test1.setOnClickListener(this);
+        btn_test2 = (Button) findViewById(R.id.btn_test2);
+        btn_test2.setOnClickListener(this);
+        btn_test3 = (Button) findViewById(R.id.btn_test3);
+        btn_test3.setOnClickListener(this);
+        btn_test4 = (Button) findViewById(R.id.btn_test4);
+        btn_test4.setOnClickListener(this);
+        
+        btn_test3.setVisibility(View.GONE);
+        btn_test4.setVisibility(View.GONE);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_test:
-//                LearningBuilder builder = new LearningBuilder();
-//                builder.setTargetView(v, btn_test1)
-//                        .setTargetType(LearningBuilder.SHAPE_ROUND_RECT)
-//                        .setDirectionViewId(R.layout.v_arrow, R.layout.v_arrow)
-//                        .setDirection(LearningBuilder.DIRECTION_DOWN, LearningBuilder.DIRECTION_UP)
-//                        .setPadding(10);
-//                builder.create().show(this);
-                startActivity(new Intent(MainActivity.this,SimpleActivity.class));
+                startActivity(new Intent(MainActivity.this, SampleActivity.class));
+                break;
+            case R.id.btn_test1:
+                startActivity(new Intent(MainActivity.this, Sample1Activity.class));
+                break;
+            case R.id.btn_test2:
+                startActivity(new Intent(MainActivity.this, Sample2Activity.class));
+                break;
+            case R.id.btn_test3:
+                break;
+            case R.id.btn_test4:
                 break;
         }
     }

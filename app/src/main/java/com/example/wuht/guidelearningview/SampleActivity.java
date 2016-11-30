@@ -2,7 +2,7 @@ package com.example.wuht.guidelearningview;
 
 import com.example.wuht.guidelearningview.LeadLearning.LearningBuilder;
 
-public class SimpleActivity extends BaseActivity {
+public class SampleActivity extends BaseActivity {
 
 
     @Override
