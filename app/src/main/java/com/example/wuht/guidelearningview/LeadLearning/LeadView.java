@@ -120,10 +120,8 @@ public class LeadView extends ViewGroup {
 
     @Override
     protected void onDraw(Canvas canvas) {
+
         mBitmap.eraseColor(mBgPaint.getColor());
-/*        if (mIndex < 1) {
-            mBitmapCanvas.drawColor(mBgPaint.getColor());
-        }*/
         mTargetPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
         switch (mTargetType) {
             case LearningBuilder.SHAPE_CIRCLE:
