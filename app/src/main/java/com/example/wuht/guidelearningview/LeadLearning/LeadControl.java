@@ -3,6 +3,7 @@ package com.example.wuht.guidelearningview.LeadLearning;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -10,7 +11,7 @@ import android.view.ViewGroup;
  * Created by wuht on 2016/11/29.
  */
 
-public class LeadControl {
+public class LeadControl implements View.OnClickListener {
     private LeadView mLeadView;
     private LearningBuilder.Configeration mConfiguration;
     public LeadControl() {
@@ -31,6 +32,22 @@ public class LeadControl {
             //动画
         }
 
+        mLeadView.setOnClickListener(this);
+    }
+
+    public void dismiss(Activity activity) {
+        if (null == mLeadView) {
+            return;
+        }
+        if (mLeadView.getParent() == null) {
+            return;
+        }
+        try {
+            ViewGroup vp = (ViewGroup) activity.getWindow().getDecorView();
+            vp.removeView(mLeadView);
+        } catch (Exception e) {
+            Log.d("LeadControl", "e:" + e);
+        }
     }
 
     private void createLeadView(Context context) {
@@ -57,4 +74,8 @@ public class LeadControl {
         return rect;
     }
 
+    @Override
+    public void onClick(View v) {
+        dismiss((Activity) v.getContext());
+    }
 }
