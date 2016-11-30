@@ -24,14 +24,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initLearningView() {
         LearningBuilder builder = new LearningBuilder();
-
     }
 
     private void initView() {
         btn_test = (Button) findViewById(R.id.btn_test);
         btn_test1 = (Button) findViewById(R.id.btn_test1);
-        activity_main = (RelativeLayout) findViewById(R.id.activity_main);
-
         btn_test.setOnClickListener(this);
     }
 
@@ -39,9 +36,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_test:
-                //  ViewGroup vp = (ViewGroup) findViewById(android.R.id.content);
-//                ViewGroup vp = (ViewGroup) this.getWindow().getDecorView();//这个直接全屏了啊
-//                vp.addView(new LeadView(this));
                 LearningBuilder builder = new LearningBuilder();
                 builder.setTargetView(v, btn_test1)
                         .setTargetType(LearningBuilder.SHAPE_ROUND_RECT)
